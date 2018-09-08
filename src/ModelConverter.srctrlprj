@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+    <source_groups>
+        <source_group_846ada27-d45e-4130-87f3-320591fddd60>
+            <cross_compilation>
+                <target>
+                    <abi>unknown</abi>
+                    <arch>x86_64</arch>
+                    <sys>unknown</sys>
+                    <vendor>unknown</vendor>
+                </target>
+                <target_options_enabled>0</target_options_enabled>
+            </cross_compilation>
+            <header_search_paths>
+                <header_search_path>base</header_search_path>
+                <header_search_path>entity</header_search_path>
+                <header_search_path>event</header_search_path>
+                <header_search_path>game</header_search_path>
+                <header_search_path>image</header_search_path>
+                <header_search_path>input</header_search_path>
+                <header_search_path>math</header_search_path>
+                <header_search_path>md5</header_search_path>
+                <header_search_path>mdl</header_search_path>
+                <header_search_path>render</header_search_path>
+                <header_search_path>util</header_search_path>
+                <header_search_path>viewer</header_search_path>
+            </header_search_paths>
+            <name>C++ Source Group</name>
+            <source_extensions>
+                <source_extension>.cpp</source_extension>
+                <source_extension>.cxx</source_extension>
+                <source_extension>.cc</source_extension>
+            </source_extensions>
+            <source_paths>
+                <source_path>base</source_path>
+                <source_path>entity</source_path>
+                <source_path>event</source_path>
+                <source_path>game</source_path>
+                <source_path>image</source_path>
+                <source_path>input</source_path>
+                <source_path>math</source_path>
+                <source_path>md5</source_path>
+                <source_path>mdl</source_path>
+                <source_path>render</source_path>
+                <source_path>util</source_path>
+                <source_path>viewer</source_path>
+            </source_paths>
+            <standard>c++14</standard>
+            <status>enabled</status>
+            <type>C++ Source Group</type>
+        </source_group_846ada27-d45e-4130-87f3-320591fddd60>
+    </source_groups>
+    <version>4</version>
+</config>
