@@ -149,7 +149,7 @@ TEST_CASE ( "Test SkeletonMesh Animated with rotation" )
             modelMesh = **it;
             modelMesh.ApplyTransform ( rotationTransform );
             modelMesh.ApplyTransforms();
-            voxelizer.WriteOBJModel ( modelMesh, destFilePath.str() );
+            voxelizer.WriteObjMesh ( modelMesh, destFilePath.str() );
             meshIndex++;
             ++it;
         }
@@ -158,7 +158,7 @@ TEST_CASE ( "Test SkeletonMesh Animated with rotation" )
         Mesh* mesh = MeshUtils::buildMeshFromSkeleton ( *skeleton, size );
         mesh->ApplyTransform ( rotationTransform );
         mesh->ApplyTransforms();
-        voxelizer.WriteOBJModel ( *mesh, "skeletonModel_animated_rotated.obj" );
+        voxelizer.WriteObjMesh ( *mesh, "skeletonModel_animated_rotated.obj" );
         delete mesh;
         animit++;
     }
@@ -194,7 +194,7 @@ TEST_CASE ( "Test SkeletonMesh with rotation" )
         modelMesh = **it;
         modelMesh.ApplyTransform ( rotationTransform );
         modelMesh.ApplyTransforms();
-        voxelizer.WriteOBJModel ( modelMesh, destFilePath.str() );
+        voxelizer.WriteObjMesh ( modelMesh, destFilePath.str() );
         meshIndex++;
         ++it;
     }
@@ -203,7 +203,7 @@ TEST_CASE ( "Test SkeletonMesh with rotation" )
     Mesh* mesh = MeshUtils::buildMeshFromSkeleton ( *skeleton, size );
     mesh->ApplyTransform ( rotationTransform );
     mesh->ApplyTransforms();
-    voxelizer.WriteOBJModel ( *mesh, "skeletonModel_rotated.obj" );
+    voxelizer.WriteObjMesh ( *mesh, "skeletonModel_rotated.obj" );
     delete mesh;
     SECTION ( "Check SkeletonMesh" ) {
         INFO ( "Check SkeletonMesh" );
@@ -273,7 +273,7 @@ TEST_CASE ( "Test mesh rotation" )
     rotationTransform.SetRotation ( axisrotation );
     cube.ApplyTransform ( rotationTransform );
     cube.ApplyTransforms();
-    voxelizer.WriteOBJModel ( cube, "cube_rotated.obj" );
+    voxelizer.WriteObjMesh ( cube, "cube_rotated.obj" );
     Image* img_rotated = ImageUtils::Snapshot ( cam, cube );
     writer.writePGM5 ( "cube_rotated.ppm",*img_rotated );
     delete img_rotated;
@@ -298,12 +298,12 @@ TEST_CASE ( "Test mesh scale" )
     Image* img = ImageUtils::Snapshot ( cam, cube );
     writer.writePGM5 ( "cube.ppm",*img );
     delete img;
-    voxelizer.WriteOBJModel ( cube, "cube.obj" );
+    voxelizer.WriteObjMesh ( cube, "cube.obj" );
     MTransform<float> transform;
     transform.SetScale ( 10.0f );
     cube.ApplyTransform ( transform );
     cube.ApplyTransforms();
-    voxelizer.WriteOBJModel ( cube, "cube_scaled.obj" );
+    voxelizer.WriteObjMesh ( cube, "cube_scaled.obj" );
     Image* img_scaled = ImageUtils::Snapshot ( cam, cube );
     writer.writePGM5 ( "cube_scaled.ppm",*img_scaled );
     delete img_scaled;
@@ -479,14 +479,14 @@ TEST_CASE ( "Test SkeletonMesh" )
     while ( it!=endIt ) {
         std::stringstream destFilePath;
         destFilePath << destName<< meshIndex << ".obj";
-        voxelizer.WriteOBJModel ( **it, destFilePath.str() );
+        voxelizer.WriteObjMesh ( **it, destFilePath.str() );
         meshIndex++;
         ++it;
     }
     Skeleton* skeleton = model->GetSkeleton();
     float size = 0.2f;
     Mesh* mesh = MeshUtils::buildMeshFromSkeleton ( *skeleton, size );
-    voxelizer.WriteOBJModel ( *mesh, "skeletonModel.obj" );
+    voxelizer.WriteObjMesh ( *mesh, "skeletonModel.obj" );
 
     SECTION ( "Check SkeletonMesh" ) {
         INFO ( "Check SkeletonMesh" );

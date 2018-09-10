@@ -532,7 +532,7 @@ void Mesh::AppendMesh(Mesh& mesh)
         for(auto index : indexList) {
             indexSections[sectionIndex].push_back(indexOffset + index);
         }
-        sectionIndex = indexLenghts.size()+1;
+        sectionIndex ++;
     }
     for(int indexLenght : mesh.indexLenghts) {
         indexLenghts.push_back(indexLenght);

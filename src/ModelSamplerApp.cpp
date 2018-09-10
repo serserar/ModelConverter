@@ -19,11 +19,13 @@
 using namespace std;
 namespace fs = std::experimental::filesystem;
 
-ModelSamplerApp::ModelSamplerApp ( std::string inputPath, std::string destPath, std::string sampleFileName )
+ModelSamplerApp::ModelSamplerApp ( std::string inputPath, std::string destPath, std::string sampleFileName, bool sample3d )
 {
     this->inputPath = inputPath;
     this->destPath = destPath;
     this->sampleFileName = sampleFileName;
+    this->sample3d = sample3d;
+    this->sample2d = !sample3d;
 }
 
 ModelSamplerApp::~ModelSamplerApp()
@@ -130,15 +132,32 @@ void ModelSamplerApp::SampleModel ( AnimatedModel& model, Camera& cam, string mo
                     skeletonMesh->ApplyTransform ( rotationTransform );
                     skeletonMesh->ApplyTransforms();
                 }
-                Image* img_model = ImageUtils::Snapshot ( cam, model );
-                PPMReader writer;
-                fs::path imageModelPath = destPath;
-                writer.writePGM5 ( imageModelPath/="img_model_"+ anim.GetName() + std::to_string ( i ) + std::to_string (sample ) +".ppm",*img_model );
-                delete img_model;
-                Image* img_skeleton = ImageUtils::Snapshot ( cam, *skeletonMesh );
-                fs::path imageSkeletonModelPath = destPath;
-                writer.writePGM5 ( imageSkeletonModelPath/="img_skeleton_"+ anim.GetName()+ std::to_string ( i ) + std::to_string (sample ) +".ppm",*img_skeleton );
-                delete img_skeleton;
+                if(sample2d) {
+                    Image* img_model = ImageUtils::Snapshot ( cam, model );
+                    PPMReader writer;
+                    fs::path imageModelPath = destPath;
+                    writer.writePGM5 ( imageModelPath/="img_model_"+ anim.GetName() + std::to_string ( i ) + std::to_string (sample ) +".ppm",*img_model );
+                    delete img_model;
+                    Image* img_skeleton = ImageUtils::Snapshot ( cam, *skeletonMesh );
+                    fs::path imageSkeletonModelPath = destPath;
+                    writer.writePGM5 ( imageSkeletonModelPath/="img_skeleton_"+ anim.GetName()+ std::to_string ( i ) + std::to_string (sample ) +".ppm",*img_skeleton );
+                    delete img_skeleton;
+                } else {
+                    auto it = model.GetBeginVisibleMeshIterator();
+                    auto endIt = model.GetEndVisibleMeshIterator();
+                    Mesh* modelMesh = new Mesh();
+                    while(it!=endIt) {
+                        modelMesh->AppendMesh(**it);
+                        ++it;
+                    }
+                    VoxelizerTool voxelizer;
+                    fs::path imageModelPath = destPath;
+                    voxelizer.WriteObjMesh(*modelMesh, imageModelPath/="model_"+ anim.GetName()+ std::to_string ( i ) + std::to_string (sample ) +".obj");
+                    delete modelMesh;
+                    fs::path imageSkeletonModelPath = destPath;
+                    voxelizer.WriteObjMesh(*skeletonMesh, imageSkeletonModelPath/="skeleton_"+ anim.GetName()+ std::to_string ( i ) + std::to_string (sample ) +".obj");
+                    
+                }
             }
             delete skeletonMesh;
             sample++;
@@ -153,7 +172,7 @@ MTransform<float> ModelSamplerApp::GenerateScaleTransformToCameraBounds(Animated
     //scale
     //get camera max
     BBox modelBox = model.GetBoundingBox();
-    
+
     float modelWidth = modelBox.GetWidth();
     float modelHeight = modelBox.GetHeight();
     float modelDepth = modelBox.GetDepth();

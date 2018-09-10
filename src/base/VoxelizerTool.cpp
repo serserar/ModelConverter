@@ -298,7 +298,7 @@ Mesh * VoxelizerTool::VoxelixeExt ( Mesh& mesh, int meshIndex, float precision, 
 }
 
 
-void VoxelizerTool::WriteOBJModel(Mesh& mesh, string destFilePath)
+void VoxelizerTool::WriteObjMesh(Mesh& mesh, string destFilePath)
 {
 
     int indexLenght = 0;
@@ -374,3 +374,4 @@ void VoxelizerTool::WriteOBJModel(Mesh& mesh, string destFilePath)
 
     vx_mesh_free ( result );
 }
+

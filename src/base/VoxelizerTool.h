@@ -16,7 +16,7 @@
 
 #ifndef VOXELIZERTOOL_H
 #define VOXELIZERTOOL_H
-#include "Mesh.h"
+#include "Model.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -48,7 +48,8 @@ public:
     
     Mesh* VoxelixeExt(Mesh& mesh, int meshIndex, float precision, BBox& voxelSize, bool autoSize, vector<BBox>& voxels);
     
-    void WriteOBJModel(Mesh& mesh, string destModelName);
+    void WriteObjMesh(Mesh& mesh, string destModelName);
+    
 private:    
     bool checkIntersection(Triangle& triangle, BBox& voxel);
 };

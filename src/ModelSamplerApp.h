@@ -27,6 +27,7 @@
 #include "util/ImageUtils.h"
 #include "image/PPMReader.h"
 #include "samplesdescriptor/SamplesConfigParser.h"
+#include "base/VoxelizerTool.h"
 /**
  * @todo write docs
  */
@@ -36,7 +37,7 @@ public:
     /**
      * Default constructor
      */
-    ModelSamplerApp(std::string inputPath, std::string destPath, std::string sampleFileName);
+    ModelSamplerApp(std::string inputPath, std::string destPath, std::string sampleFileName, bool sample3d);
 
     /**
      * Destructor
@@ -54,6 +55,8 @@ private:
     MTransform<float> GenerateScaleTransformToCameraBounds(AnimatedModel& model, Camera& cam);
     vector<string> modelsPath;
     vector<string> skeletonsPath;
+    bool sample2d;
+    bool sample3d;
 };
 
 #endif // MODELSAMPLERAPP_H

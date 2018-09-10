@@ -52,6 +52,10 @@ public:
     
     static Image* Snapshot(Camera& camera, Mesh& mesh, bool printDebug = false);
     
+    static Mesh* GetMeshFromDepthImageList(Camera& camera, vector<Image*>& imgList, bool printDebug = false);
+    
+    static Mesh* GetMeshFromDepthImage(Camera& camera, Image& img, bool printDebug = false);
+    
 private:
      static void toGrayScaleImage(vector<Mesh*> meshes);  
      static void Snapshot(Image& modelImage, Camera& camera, Mesh& mesh, bool printDebug = false);

@@ -172,5 +172,25 @@ void ImageUtils::Snapshot(Image& modelImage, Camera& camera, Mesh& mesh, bool pr
     }
 }
 
+Mesh * ImageUtils::GetMeshFromDepthImageList(Camera& camera, vector<Image *>& imgList, bool printDebug)
+{
+    Mesh* mesh = nullptr;
+    return mesh;
+}
+
+Mesh * ImageUtils::GetMeshFromDepthImage(Camera& camera, Image& img, bool printDebug)
+{
+    Mesh* mesh = nullptr;
+    for ( int i = 0; i < img.getWidth(); i++ ) {
+        for ( int j = 0; j < img.getHeight(); j++ ) {
+            int index = j*img.getWidth()+i;
+            img.getComponent(index);
+        }
+    }
+    return mesh;
+}
+
+
+
 
 
